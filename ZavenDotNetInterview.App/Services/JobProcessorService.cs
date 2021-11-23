@@ -12,7 +12,6 @@ namespace ZavenDotNetInterview.App.Services
 {
     public class JobProcessorService : IJobProcessorService
     {
-
         private readonly ZavenDotNetInterviewContext _context;
         private readonly ILogRepository _logRepository;
 

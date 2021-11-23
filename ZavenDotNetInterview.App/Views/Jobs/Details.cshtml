@@ -1,26 +1,19 @@
 ﻿@model ZavenDotNetInterview.App.Models.Job
 @{ ViewBag.Title = "Details"; }
 
-@*@if (Model.Id != Guid.Empty)
-{*@
-    <h2>Details</h2>
-    <p>
-        @Model.Name
-    </p>
-    <p>
-        @Model.Status
-    </p>
-    @if (Model.DoAfter != null)
+@if (Model.Id != Guid.Empty)
+{
+    <h1>Details</h1>
+    <hr />
+    <h4>Name: <b class="text-secondary">@Model.Name</b></h4>
+    <h4>Status: <b class="text-secondary">@Model.Status</b></h4>
+    if (Model.DoAfter != null)
     {
-        <p>
-            @Model.DoAfter
-        </p>
+        <h4>Status: <b class="text-secondary">@Model.DoAfter</b></h4>
     }
     else
     {
-        <p>
-            No date was provided
-        </p>
+        <h4>Status: <b class="text-secondary">No date was provided</b></h4>
     }
     <table class="table table-striped">
         <tr>
@@ -43,26 +36,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => log.Description)
                 </td>
-                @if (log.CreatedAt != null)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => log.CreatedAt)
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        No date provided
-                    </td>
-                }
+                <td>
+                    @Html.DisplayFor(modelItem => log.CreatedAt)
+                </td>
             </tr>
-        }
+         }
     </table>
-@*}
+}
 else
 {
     <h1>
         Job with this ID does not exists :/
     </h1>
-}*@
+    <hr />
+}
 

@@ -10,15 +10,15 @@ namespace ZavenDotNetInterview.App.Controllers
     public class JobsController : Controller
     {
         private readonly IJobProcessorService _jobProcessorService;
+        private readonly IJobService _jobService;
         private readonly IJobRepository _jobRepository;
         private readonly ILogRepository _logRepository;
-        private readonly ZavenDotNetInterviewContext _context;
 
-        public JobsController(ZavenDotNetInterviewContext context, IJobProcessorService jobProcessorService,
+        public JobsController(IJobProcessorService jobProcessorService, IJobService jobService,
                               IJobRepository jobRepository, ILogRepository logRepository)
         {
-            _context = context;
             _jobProcessorService = jobProcessorService;
+            _jobService = jobService;
             _jobRepository = jobRepository;
             _logRepository = logRepository;
         }
@@ -26,8 +26,7 @@ namespace ZavenDotNetInterview.App.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var jobs = await _jobRepository.GetAllJobsSortedByDateAsync();
-            return View(jobs);
+            return View(await _jobRepository.GetAllJobsSortedByDateAsync());
         }
 
         [HttpGet]
@@ -48,12 +47,9 @@ namespace ZavenDotNetInterview.App.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ifJobWithNameExists = await _jobRepository.CheckIfJobWithNameExistsAsync(input.Name);
-                if (!ifJobWithNameExists)
+                if (!await _jobRepository.CheckIfJobWithNameExistsAsync(input.Name))
                 {
-                    var job = _jobRepository.CreateNewJob(input.Name, input.DoAfter);
-                    _logRepository.CreateNewLog("New", job.Id);
-                    if (await _context.SaveChangesAsync() > 0)
+                    if (await _jobService.CreateNewJobAsync(input.Name, input.DoAfter))
                     {
                         return RedirectToAction("Index");
                     }

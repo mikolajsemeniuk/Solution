@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace ZavenDotNetInterview.App.Interfaces
 {
-    public interface IJobProcessorService
+    public interface IJobService
     {
-        Task ProcessJobs();
+        Task<bool> CreateNewJobAsync(string name, DateTime? doAfter);
     }
 }
