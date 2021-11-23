@@ -1,0 +1,68 @@
+﻿@model ZavenDotNetInterview.App.Models.Job
+@{ ViewBag.Title = "Details"; }
+
+@*@if (Model.Id != Guid.Empty)
+{*@
+    <h2>Details</h2>
+    <p>
+        @Model.Name
+    </p>
+    <p>
+        @Model.Status
+    </p>
+    @if (Model.DoAfter != null)
+    {
+        <p>
+            @Model.DoAfter
+        </p>
+    }
+    else
+    {
+        <p>
+            No date was provided
+        </p>
+    }
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Id
+            </th>           
+            <th>
+                Description
+            </th>
+            <th>
+                CreatedAt
+            </th>
+        </tr>
+        @foreach (var log in @Model.Logs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => log.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => log.Description)
+                </td>
+                @if (log.CreatedAt != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => log.CreatedAt)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        No date provided
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+@*}
+else
+{
+    <h1>
+        Job with this ID does not exists :/
+    </h1>
+}*@
+
