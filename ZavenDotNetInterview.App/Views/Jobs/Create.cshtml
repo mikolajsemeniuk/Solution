@@ -12,9 +12,9 @@
 {
     @Html.AntiForgeryToken()
 
-    <h4>
+    <h2>
         Create a job
-    </h4>
+    </h2>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -30,7 +30,7 @@
                     @Html.EditorFor(model => model.DoAfter, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                     @Html.ValidationMessageFor(model => model.DoAfter, "", new { @class = "text-danger" })
                 </div>
-                <input type="submit" value="Add Task" />
+                <input class="btn btn-primary" type="submit" value="Add Task" />
             </form>
         </div>
     </div>

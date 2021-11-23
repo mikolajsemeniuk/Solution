@@ -46,13 +46,14 @@ namespace ZavenDotNetInterview.App.Services
             var jobsToProcess = await ChangeStatusToInProgress();
             var jobs = jobsToProcess.Select(async job =>
             {
-                if (await ProcessJob(job))
+                if (await WasJobSuccessful(job))
                 {
                     job.ChangeStatus(JobStatus.Done);
                     _logRepository.CreateNewLog("Done", job.Id);
                 }
                 else
                 {
+                    job.IncrementFailureCounterBy1();
                     if (job.FailureCounter == 5)
                     {
                         job.ChangeStatus(JobStatus.Closed);
@@ -61,7 +62,6 @@ namespace ZavenDotNetInterview.App.Services
                     else
                     {
                         job.ChangeStatus(JobStatus.Failed);
-                        job.IncrementFailureCounterBy1();
                         _logRepository.CreateNewLog("Failed", job.Id);
                     }
                 }
@@ -71,7 +71,7 @@ namespace ZavenDotNetInterview.App.Services
             await _context.SaveChangesAsync();
         }
 
-        private async Task<bool> ProcessJob(Job job)
+        private async Task<bool> WasJobSuccessful(Job job)
         {
             Random rand = new Random();
             if (rand.Next(10) < 5)

@@ -3,7 +3,7 @@
 
 @if (Model.Id != Guid.Empty)
 {
-    <h1>Details</h1>
+    <h2>Details</h2>
     <hr />
     <h4>Name: <b class="text-secondary">@Model.Name</b></h4>
     <h4>Status: <b class="text-secondary">@Model.Status</b></h4>
@@ -15,11 +15,12 @@
     {
         <h4>Date after process: <b class="text-secondary">No date was provided</b></h4>
     }
+    <h4>How many fails: <b class="text-secondary">@Model.FailureCounter</b></h4>
     <table class="table table-striped">
         <tr>
             <th>
                 Id
-            </th>           
+            </th>
             <th>
                 Description
             </th>
@@ -40,7 +41,7 @@
                     @Html.DisplayFor(modelItem => log.CreatedAt)
                 </td>
             </tr>
-         }
+        }
     </table>
 }
 else

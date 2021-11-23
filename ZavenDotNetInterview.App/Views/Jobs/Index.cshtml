@@ -4,11 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-@Html.ActionLink("Create", "Create")
-@Html.ActionLink("Process", "Process")
-
+<h2>Your jobs</h2>
+<hr />
+<a onclick="location.href='@Url.Action("Create")';return false;">Create</a>
+<a onclick="location.href='@Url.Action("Process")';return false;">Process</a>
 <table class="table table-striped">
     <tr>
         <th>
@@ -19,6 +18,9 @@
         </th>
         <th>
             Created At
+        </th>
+        <th>
+            Updated At
         </th>
         <th>
             Details
@@ -36,6 +38,18 @@
             <td>
                 @Html.DisplayFor(modelItem => job.CreatedAt)
             </td>
+            @if (job.LastUpdatedAt != null)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => job.LastUpdatedAt)
+                </td>
+            }
+            else
+            {
+                <td>
+                    No modification so far
+                </td>
+            }
             <td>
                 @Html.ActionLink("Details", "Details", new { jobId = job.Id })
             </td>
