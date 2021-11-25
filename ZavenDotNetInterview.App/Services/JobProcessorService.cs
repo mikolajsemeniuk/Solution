@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ZavenDotNetInterview.App.DataContext;
+using ZavenDotNetInterview.App.Enums;
 using ZavenDotNetInterview.App.Interfaces;
 using ZavenDotNetInterview.App.Models;
 
