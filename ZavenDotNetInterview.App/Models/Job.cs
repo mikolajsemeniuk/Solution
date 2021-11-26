@@ -11,6 +11,7 @@ namespace ZavenDotNetInterview.App.Models
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Full name is required.")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string Name { get; set; }
         public JobStatus Status { get; set; }
         public DateTime? DoAfter { get; set; }
